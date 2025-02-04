@@ -1,7 +1,7 @@
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
 abstract class DeviceConnectionService {
-  Future<void> connect(String macPrinterAddress) async {
+  static Future<void> connect(String macPrinterAddress) async {
     if(await PrintBluetoothThermal.bluetoothEnabled) {
       if(await PrintBluetoothThermal.connectionStatus) {
         print(await PrintBluetoothThermal.connectionStatus);
@@ -13,7 +13,7 @@ abstract class DeviceConnectionService {
     }
   }
 
-  Future<void> disconnect() async {
+  static Future<void> disconnect() async {
     await PrintBluetoothThermal.disconnect;
   }
 }
