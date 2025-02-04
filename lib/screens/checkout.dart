@@ -1,17 +1,25 @@
+import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
+import 'package:panucci_ristorante/services/device_connect_service.dart';
+import 'package:panucci_ristorante/services/show_available_devices_service.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
+import 'package:panucci_ristorante/store/printer_settings_store.dart';
+import 'package:panucci_ristorante/viewmodels/checkout_viewmodel.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:provider/provider.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
 
 class Checkout extends StatelessWidget {
-  const Checkout({Key? key, required this.homeContext}) : super(key: key);
+  Checkout({Key? key, required this.homeContext}) : super(key: key);
   final BuildContext homeContext;
+  final CheckoutViewmodel checkoutViewModel = CheckoutViewmodel();
 
   @override
   Widget build(BuildContext context) {
     final CarrinhoStore carrinhoStore = Provider.of<CarrinhoStore>(homeContext, listen: false);
+    final PrinterSettingsStore printerSettingsStore = Provider.of<PrinterSettingsStore>(homeContext, listen: false);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -59,7 +67,12 @@ class Checkout extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        List<BluetoothInfo> devices = await ShowAvailableDevicesService.showAvailableDevices();
+                        await DeviceConnectionService.connect(devices[0].macAdress);
+                        final CapabilityProfile profile = await CapabilityProfile.load();
+                        await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra, printerSettingsStore.paperSize, printerSettingsStore.textSize, profile);
+                      },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
                           foregroundColor: Colors.white,
