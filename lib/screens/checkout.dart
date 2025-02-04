@@ -70,8 +70,7 @@ class Checkout extends StatelessWidget {
                       onPressed: () async {
                         List<BluetoothInfo> devices = await ShowAvailableDevicesService.showAvailableDevices();
                         await DeviceConnectionService.connect(devices[0].macAdress);
-                        final CapabilityProfile profile = await CapabilityProfile.load();
-                        await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra, printerSettingsStore.paperSize, printerSettingsStore.textSize, profile);
+                        await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra, printerSettingsStore.paperSize, printerSettingsStore.textSize);
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,

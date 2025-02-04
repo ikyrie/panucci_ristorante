@@ -4,7 +4,8 @@ import 'package:panucci_ristorante/services/printing_service.dart';
 
 class CheckoutViewmodel {
 
-  Future<void> printReceipt(List<Item> items, double total, PaperSize paperSize, PosTextSize textSize, CapabilityProfile profile ) async {
+  Future<void> printReceipt(List<Item> items, double total, PaperSize paperSize, PosTextSize textSize) async {
+    final CapabilityProfile profile = await CapabilityProfile.load();
     List<int> bytes = _prepareReceit(items, total, paperSize, textSize, profile);
     await PrintingService.printReceipt(bytes);
   }
