@@ -34,30 +34,30 @@ class Home extends StatelessWidget {
       ),
       body: SafeArea(
         child: Stack(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 90),
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                    child:
-                        SearchInput(searchTextController: searchTextController)),
-                const SliverToBoxAdapter(
-                    child: CategoriaText(titulo: "Mais comprados")),
-                const SliverToBoxAdapter(
-                  child: ItemList(categoria: "mais comprados"),
-                ),
-                const SliverToBoxAdapter(
-                    child: CategoriaText(titulo: "Para o almoço")),
-                const SliverToBoxAdapter(
-                  child: ItemList(categoria: "para o almoço"),
-                ),
-                const SliverToBoxAdapter(
-                    child: CategoriaText(titulo: "Para dividir")),
-                const SliverToBoxAdapter(
-                  child: ItemList(categoria: "para dividir"),
-                ),
-              ],
-            ),
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                  child:
+                      SearchInput(searchTextController: searchTextController)),
+              const SliverToBoxAdapter(
+                  child: CategoriaText(titulo: "Mais comprados")),
+              const SliverToBoxAdapter(
+                child: ItemList(categoria: "mais comprados"),
+              ),
+              const SliverToBoxAdapter(
+                  child: CategoriaText(titulo: "Para o almoço")),
+              const SliverToBoxAdapter(
+                child: ItemList(categoria: "para o almoço"),
+              ),
+              const SliverToBoxAdapter(
+                  child: CategoriaText(titulo: "Para dividir")),
+              const SliverToBoxAdapter(
+                child: ItemList(categoria: "para dividir"),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 70),
+              ),
+            ],
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -70,7 +70,7 @@ class Home extends StatelessWidget {
                           return Checkout(homeContext: homeContext);
                         }));
                       },
-                      child: Ink(
+                      child: Container(
                           width: double.infinity,
                           height: 80,
                           padding: const EdgeInsets.all(16),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:panucci_ristorante/services/device_connect_service.dart';
+import 'package:panucci_ristorante/services/show_available_devices_service.dart';
 
 class PairedDevices extends StatelessWidget {
-  const PairedDevices({super.key});
+  PairedDevices({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +15,41 @@ class PairedDevices extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Center(
-          child: Text("Paired Devices"),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 32),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Text("Bluetooth", style: TextStyle(fontSize: 22),),
+                ),
+              ),
+              FutureBuilder(
+                  future: ShowAvailableDevicesService.showAvailableDevices(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SliverList.builder(
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            onTap: () {
+                              DeviceConnectionService.connect(snapshot.data![index].macAdress);
+                            },
+                            title: Text(snapshot.data![index].name),
+                            subtitle: Text(snapshot.data![index].macAdress),
+                            leading: Icon(Icons.print),
+                          );
+                        },
+                        itemCount: snapshot.data!.length,
+                      );
+                    } else {
+                      return SliverToBoxAdapter(
+                        child: Container(),
+                      );
+                    }
+                  }),
+            ],
+          ),
         ),
       ),
     );
