@@ -19,15 +19,15 @@ class Checkout extends StatelessWidget {
   Widget build(BuildContext context) {
     final CarrinhoStore carrinhoStore = Provider.of<CarrinhoStore>(homeContext, listen: false);
     final PrinterSettingsStore printerSettingsStore = Provider.of<PrinterSettingsStore>(homeContext, listen: false);
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Pedido",
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Pedido",
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
-        body: Padding(
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: CustomScrollView(
             slivers: <Widget>[

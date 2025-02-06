@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:panucci_ristorante/components/item_list.dart';
 import 'package:panucci_ristorante/screens/checkout.dart';
+import 'package:panucci_ristorante/screens/paired_devices.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
 import 'package:provider/provider.dart';
 import '../components/categoria_text.dart';
@@ -16,21 +17,23 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final carrinhoStore = Provider.of<CarrinhoStore>(context, listen: false);
     final BuildContext homeContext = context;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Cardápio",
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.print),
-            )
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Cardápio",
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
-        body: Stack(children: <Widget>[
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PairedDevices()));
+            },
+            icon: Icon(Icons.print),
+          )
+        ],
+      ),
+      body: SafeArea(
+        child: Stack(children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 90),
             child: CustomScrollView(
