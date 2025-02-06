@@ -1,7 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
-abstract class ShowAvailableDevicesService {
+class ShowAvailableDevicesService {
   static Future<List<BluetoothInfo>> showAvailableDevices() async {
     await Permission.bluetoothConnect.request();
     final List<BluetoothInfo> listResult = await PrintBluetoothThermal.pairedBluetooths;

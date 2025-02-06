@@ -1,6 +1,6 @@
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
-abstract class PrintingService {
+class PrintingService {
   static Future<void> printReceipt(List<int> bytes) async {
     try {
       await PrintBluetoothThermal.writeBytes(bytes);
