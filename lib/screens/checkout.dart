@@ -21,6 +21,12 @@ class Checkout extends StatelessWidget {
     final PrinterSettingsStore printerSettingsStore = Provider.of<PrinterSettingsStore>(homeContext, listen: false);
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Pedido",
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: CustomScrollView(

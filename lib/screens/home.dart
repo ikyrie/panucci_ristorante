@@ -18,6 +18,18 @@ class Home extends StatelessWidget {
     final BuildContext homeContext = context;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Cardápio",
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.print),
+            )
+          ],
+        ),
         body: Stack(children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 90),
