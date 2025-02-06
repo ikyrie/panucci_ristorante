@@ -1,4 +1,3 @@
-import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
 import 'package:panucci_ristorante/services/device_connect_service.dart';
@@ -75,13 +74,13 @@ class Checkout extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
                           foregroundColor: Colors.white,
-                          backgroundColor: Theme.of(context).colorScheme.surfaceTint),
+                          backgroundColor: Color(0xFFB81D27),),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const <Widget>[
                             Padding(
                               padding: EdgeInsets.only(right: 8.0),
-                              child: Icon(Icons.account_balance_wallet),
+                              child: Icon(Icons.account_balance_wallet, color: Colors.white,),
                             ),
                             Text(
                               "Pedir",

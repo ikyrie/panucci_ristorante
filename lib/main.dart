@@ -14,7 +14,7 @@ const PanucciDelivery({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-      theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 83, 83), ), useMaterial3: true),
+      theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 0, 0), ), useMaterial3: true),
       home: MultiProvider(providers: <Provider>[
         Provider<CarrinhoStore>(create: (_) => CarrinhoStore()),
         Provider<PrinterSettingsStore>(create: (_) => PrinterSettingsStore()),
