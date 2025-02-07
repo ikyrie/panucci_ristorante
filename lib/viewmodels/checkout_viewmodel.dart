@@ -4,15 +4,15 @@ import 'package:panucci_ristorante/services/printing_service.dart';
 
 class CheckoutViewmodel {
 
-  Future<void> printReceipt(List<Item> items, double total, PaperSize paperSize, PosTextSize textSize) async {
+  Future<void> printReceipt(List<Item> items, double total) async {
     final CapabilityProfile profile = await CapabilityProfile.load();
-    List<int> bytes = _prepareReceit(items, total, paperSize, textSize, profile);
+    List<int> bytes = _prepareReceit(items, total, profile);
     await PrintingService.printReceipt(bytes);
   }
 
-  List<int> _prepareReceit(List<Item> items, double total, PaperSize paperSize, PosTextSize textSize, CapabilityProfile profile) {
+  List<int> _prepareReceit(List<Item> items, double total, CapabilityProfile profile) {
     List<int> bytes = [];
-    Generator generator = Generator(paperSize, profile);
+    Generator generator = Generator(PaperSize.mm58, profile);
 
     bytes += generator.feed(3);
     bytes += generator.text("Panucci Ristorante", styles: const PosStyles(align: PosAlign.center, height: PosTextSize.size2));

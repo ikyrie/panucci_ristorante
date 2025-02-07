@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:panucci_ristorante/screens/home.dart';
-import 'package:panucci_ristorante/store/carrinho_store.dart';
-import 'package:panucci_ristorante/store/printer_settings_store.dart';
-import 'package:provider/provider.dart';
+import 'package:panucci_ristorante/injection/injection_container.dart';
+import 'package:panucci_ristorante/screens/permissions_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(const PanucciDelivery());
 }
 
@@ -15,10 +15,7 @@ const PanucciDelivery({ Key? key }) : super(key: key);
   Widget build(BuildContext context){
     return MaterialApp(
       theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 0, 0), ), useMaterial3: true),
-      home: MultiProvider(providers: <Provider>[
-        Provider<CarrinhoStore>(create: (_) => CarrinhoStore()),
-        Provider<PrinterSettingsStore>(create: (_) => PrinterSettingsStore()),
-      ],child: Home(),),
+      home: PermissionsScreen(),
     );
   }
 }

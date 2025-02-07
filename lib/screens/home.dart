@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/components/item_list.dart';
 import 'package:panucci_ristorante/screens/checkout.dart';
 import 'package:panucci_ristorante/screens/paired_devices.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
-import 'package:provider/provider.dart';
 import '../components/categoria_text.dart';
 import '../components/search_input.dart';
 
@@ -12,11 +12,10 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   final TextEditingController searchTextController = TextEditingController();
+  final CarrinhoStore carrinhoStore = GetIt.instance.get<CarrinhoStore>();
 
   @override
   Widget build(BuildContext context) {
-    final carrinhoStore = Provider.of<CarrinhoStore>(context, listen: false);
-    final BuildContext homeContext = context;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -67,7 +66,7 @@ class Home extends StatelessWidget {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return Checkout(homeContext: homeContext);
+                          return Checkout();
                         }));
                       },
                       child: Container(

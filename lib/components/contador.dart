@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/store/item_store.dart';
-import 'package:provider/provider.dart';
 
 import '../models/item.dart';
 import '../store/carrinho_store.dart';
@@ -13,7 +13,7 @@ Contador({ Key? key, required this.item }) : super(key: key);
 
   @override
   Widget build(BuildContext context){
-    final carrinhoStore = Provider.of<CarrinhoStore>(context, listen: false);
+    final CarrinhoStore carrinhoStore = GetIt.instance.get<CarrinhoStore>();
     return Observer(
       builder: (_) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
