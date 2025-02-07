@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
-import 'package:panucci_ristorante/services/device_connect_service.dart';
-import 'package:panucci_ristorante/services/show_available_devices_service.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
 import 'package:panucci_ristorante/viewmodels/checkout_viewmodel.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
@@ -70,9 +68,38 @@ class Checkout extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: ElevatedButton(
                       onPressed: () async {
-                        List<BluetoothInfo> devices = await ShowAvailableDevicesService.showAvailableDevices();
-                        await DeviceConnectionService.connect(devices[0].macAdress);
-                        await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
+                        if (await PrintBluetoothThermal.bluetoothEnabled) {
+                          await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
+                        } else {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 60),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.bluetooth,
+                                      size: 48,
+                                      color: Color(0xFFB81D27),
+                                    ),
+                                    Text(
+                                      "Ativar Bluetooth",
+                                      style: TextStyle(fontSize: 24),
+                                    ),
+                                    SizedBox(
+                                      height: 32,
+                                    ),
+                                    Text(
+                                        "Para a impressora funcionar corretamente, precisamos que você ative o Bluetooth do seu dispositivo."),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,

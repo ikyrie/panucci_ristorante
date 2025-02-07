@@ -6,11 +6,32 @@ import 'package:panucci_ristorante/store/item_store.dart';
 import '../models/item.dart';
 import '../store/carrinho_store.dart';
 
-class Contador extends StatelessWidget {
+class Contador extends StatefulWidget {
 Contador({ Key? key, required this.item }) : super(key: key);
-  final CarrinhoStore carrinhoStore = GetIt.instance.get<CarrinhoStore>();
-  final ItemStore itemStore = ItemStore();
   final Item item;
+
+  @override
+  State<Contador> createState() => _ContadorState();
+}
+
+class _ContadorState extends State<Contador> {
+  final CarrinhoStore carrinhoStore = GetIt.instance.get<CarrinhoStore>();
+
+  final ItemStore itemStore = ItemStore();
+
+  @override
+  void initState() {
+    _atualizarQuantidade();
+    super.initState();
+  }
+
+  void _atualizarQuantidade() {
+    for (var item in carrinhoStore.listaItem) {
+      if (item.nome == widget.item.nome) {
+        itemStore.adicionaItem();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context){
@@ -23,7 +44,7 @@ Contador({ Key? key, required this.item }) : super(key: key);
             onTap: () {
               if (itemStore.valorContador > 0) {
                 itemStore.removerItem();
-                carrinhoStore.removeCarrinho(item);
+                carrinhoStore.removeCarrinho(widget.item);
               }
                 
             },
@@ -34,7 +55,7 @@ Contador({ Key? key, required this.item }) : super(key: key);
             borderRadius: BorderRadius.circular(20),
             onTap: () {
               itemStore.adicionaItem();
-              carrinhoStore.adicionaCarrinho(item);
+              carrinhoStore.adicionaCarrinho(widget.item);
             },
             child: const Icon(Icons.add_circle_outline, size: 20,),
           ),
