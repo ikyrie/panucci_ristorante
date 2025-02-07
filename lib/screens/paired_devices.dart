@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:panucci_ristorante/screens/printer_settings.dart';
 import 'package:panucci_ristorante/services/device_connect_service.dart';
 import 'package:panucci_ristorante/services/show_available_devices_service.dart';
 
@@ -13,6 +14,14 @@ class PairedDevices extends StatelessWidget {
           "Dispositivos Pareados",
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PrinterSettings()));
+            },
+          )
+        ],
       ),
       body: SafeArea(
         child: Padding(
