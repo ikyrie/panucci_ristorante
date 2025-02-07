@@ -1,5 +1,6 @@
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrinterSettings extends StatelessWidget {
@@ -84,50 +85,17 @@ class PrinterSettings extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    InkWell(
+                    CustomPrimaryButton(
                       onTap: () async {
                         final SharedPreferences preferences = await SharedPreferences.getInstance();
                         await preferences.setInt('paperSize', paperSize.value);
                         await preferences.setInt('fontSize', textSize.value);
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Configurações salvas com sucesso!")));
                       },
-                      child: Ink(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFB81D27),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Text(
-                          "Salvar configuração",
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      text: "Salvar configuração",
                     ),
                     SizedBox(height: 16,),
-                    InkWell(
-                      onTap: () async {
-                
-                      },
-                      child: Ink(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: Colors.black),
-                        ),
-                        child: Text(
-                          "Imprimir teste",
-                          style: TextStyle(
-                            color: Color(0xFFB81D27),
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
+                    CustomSecondaryButton(onTap: () {}, text: "Imprimir teste"),
                   ],
                 ),
               ),

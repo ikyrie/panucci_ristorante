@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/screens/home.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -31,17 +32,14 @@ class PermissionsScreen extends StatelessWidget {
               Text(
                   "Para fazer a impressão, a aplicação precisa de autorização do seu dispositivo para acessar o Bluetooth."),
               SizedBox(height: 32),
-              InkWell(
+              CustomPrimaryButton(
                 onTap: () async {
                   await Permission.bluetoothScan.request();
                   await Permission.bluetoothConnect.request();
                   if (await Permission.bluetoothConnect.isGranted &&
                       await Permission.bluetoothScan.isGranted) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Home()));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Home()));
                   } else {
                     AlertDialog(
                       title: Text("Sem permissões"),
@@ -50,19 +48,7 @@ class PermissionsScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: Ink(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFB81D27),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Text(
-                    "Autorizar Bluetooth",
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                text: "Autorizar Bluetooth",
               ),
               SizedBox(height: 16),
               TextButton(

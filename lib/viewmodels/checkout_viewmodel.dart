@@ -16,8 +16,8 @@ class CheckoutViewmodel {
       List<Item> items, double total, CapabilityProfile profile) async {
     List<int> bytes = [];
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final paperSize = preferences.getInt("paperSize");
-    final fontSize = preferences.getInt("fontSize");
+    final paperSize = preferences.getInt("paperSize") ?? 1;
+    final fontSize = preferences.getInt("fontSize") ?? 1;
 
     Generator generator =
         Generator(PaperSizeUtils.getPaperSize(paperSize!), profile);
