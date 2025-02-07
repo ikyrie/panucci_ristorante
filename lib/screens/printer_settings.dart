@@ -2,7 +2,10 @@ import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 
 class PrinterSettings extends StatelessWidget {
-  const PrinterSettings({super.key});
+  PrinterSettings({super.key});
+
+  final TextEditingController paperSizeController = TextEditingController();
+  final TextEditingController fontSizeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class PrinterSettings extends StatelessWidget {
               Text("Selecione as configurações básicas para a sua impressão:"),
               SizedBox(height: 24,),
               DropdownMenu<PaperSize>(
+                controller: paperSizeController,
                 inputDecorationTheme: InputDecorationTheme(
                   contentPadding: const EdgeInsets.all(16),
                   border: OutlineInputBorder(
@@ -48,6 +52,7 @@ class PrinterSettings extends StatelessWidget {
               ),
               SizedBox(height: 24,),
               DropdownMenu<PosTextSize>(
+                controller: fontSizeController,
                 inputDecorationTheme: InputDecorationTheme(
                   contentPadding: const EdgeInsets.all(16),
                   border: OutlineInputBorder(
