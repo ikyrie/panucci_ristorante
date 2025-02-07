@@ -8,12 +8,12 @@ import '../store/carrinho_store.dart';
 
 class Contador extends StatelessWidget {
 Contador({ Key? key, required this.item }) : super(key: key);
+  final CarrinhoStore carrinhoStore = GetIt.instance.get<CarrinhoStore>();
   final ItemStore itemStore = ItemStore();
   final Item item;
 
   @override
   Widget build(BuildContext context){
-    final CarrinhoStore carrinhoStore = GetIt.instance.get<CarrinhoStore>();
     return Observer(
       builder: (_) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
