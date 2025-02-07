@@ -1,5 +1,5 @@
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
-import 'package:panucci_ristorante/enum/printer_settings.dart';
+import 'package:panucci_ristorante/models/printer_settings.dart';
 import 'package:panucci_ristorante/models/item.dart';
 import 'package:panucci_ristorante/services/printing_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,10 +17,7 @@ class CheckoutViewmodel {
     List<int> bytes = [];
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     final paperSize = preferences.getInt("paperSize");
-    print(paperSize);
     final fontSize = preferences.getInt("fontSize");
-    print("---------");
-    print(fontSize);
 
     Generator generator =
         Generator(PaperSizeUtils.getPaperSize(paperSize!), profile);
