@@ -86,10 +86,10 @@ class Checkout extends StatelessWidget {
                           children: const <Widget>[
                             Padding(
                               padding: EdgeInsets.only(right: 8.0),
-                              child: Icon(Icons.account_balance_wallet, color: Colors.white,),
+                              child: Icon(Icons.send, color: Colors.white,),
                             ),
                             Text(
-                              "Pedir",
+                              "Enviar para cozinha",
                               style: TextStyle(fontWeight: FontWeight.w500),
                             )
                           ]),

@@ -95,7 +95,7 @@ class Home extends StatelessWidget {
                                     ),
                                   ),
                                   Icon(
-                                    Icons.shopping_basket_outlined,
+                                    Icons.list_alt,
                                     size: 24,
                                     color:
                                         Theme.of(context).colorScheme.onPrimary,
@@ -106,7 +106,7 @@ class Home extends StatelessWidget {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                "Ver carrinho",
+                                "Ver pedido",
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Theme.of(context)
