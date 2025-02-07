@@ -69,7 +69,26 @@ class Checkout extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (await PrintBluetoothThermal.bluetoothEnabled) {
-                          await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
+                          if(await PrintBluetoothThermal.connectionStatus) {
+                            await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                    title: Text("Conectar impressora"),
+                                    content: Text(
+                                        "Conecte com uma impressora para imprimir o pedido."),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Ok"),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         } else {
                           showModalBottomSheet(
                             context: context,
