@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
-import 'package:panucci_ristorante/viewmodels/checkout_viewmodel.dart';
-import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
 
 class Checkout extends StatelessWidget {
   Checkout({Key? key}) : super(key: key);
-  final CheckoutViewmodel checkoutViewModel = CheckoutViewmodel();
 
   @override
   Widget build(BuildContext context) {
@@ -67,59 +64,7 @@ class Checkout extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: ElevatedButton(
-                      onPressed: () async {
-                        if (await PrintBluetoothThermal.bluetoothEnabled) {
-                          if(await PrintBluetoothThermal.connectionStatus) {
-                            await checkoutViewModel.printReceipt(carrinhoStore.listaItem, carrinhoStore.totalDaCompra);
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                    title: Text("Conectar impressora"),
-                                    content: Text(
-                                        "Conecte com uma impressora para imprimir o pedido."),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Ok"),
-                                        onPressed: () => Navigator.pop(context),
-                                      ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        } else {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 60),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.bluetooth,
-                                      size: 48,
-                                      color: Color(0xFFB81D27),
-                                    ),
-                                    Text(
-                                      "Ativar Bluetooth",
-                                      style: TextStyle(fontSize: 24),
-                                    ),
-                                    SizedBox(
-                                      height: 32,
-                                    ),
-                                    Text(
-                                        "Para a impressora funcionar corretamente, precisamos que você ative o Bluetooth do seu dispositivo."),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      },
+                      onPressed: () async {},
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
                           foregroundColor: Colors.white,
