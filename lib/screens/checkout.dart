@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
 import '../components/payment_method.dart';
@@ -63,25 +64,10 @@ class Checkout extends StatelessWidget {
                 hasScrollBody: false,
                 child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: ElevatedButton(
-                      onPressed: () async {},
-                      style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          foregroundColor: Colors.white,
-                          backgroundColor: Color(0xFFB81D27),),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: Icon(Icons.send, color: Colors.white,),
-                            ),
-                            Text(
-                              "Enviar para cozinha",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            )
-                          ]),
-                    )),
+                  child: CheckoutButton(
+                    onTap: () {},
+                  ),
+                ),
               )
             ],
           ),

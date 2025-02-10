@@ -56,3 +56,35 @@ class CustomSecondaryButton extends StatelessWidget {
   }
 }
 
+class CheckoutButton extends StatelessWidget {
+  const CheckoutButton({super.key, required this.onTap});
+
+  final Function onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => onTap(),
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        foregroundColor: Colors.white,
+        backgroundColor: Color(0xFFB81D27),
+      ),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              "Enviar para cozinha",
+              style: TextStyle(fontWeight: FontWeight.w500),
+            )
+          ]),
+    );
+  }
+}
