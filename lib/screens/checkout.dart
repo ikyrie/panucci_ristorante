@@ -1,7 +1,11 @@
+import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
+import 'package:panucci_ristorante/services/printer_connection_service.dart';
+import 'package:panucci_ristorante/services/receipt_printing_service.dart';
+import 'package:panucci_ristorante/services/show_paired_devices_service.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import '../components/payment_method.dart';
@@ -67,38 +71,17 @@ class Checkout extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                   child: CheckoutButton(
                     onTap: () async {
-                      final bool result = await PrintBluetoothThermal.bluetoothEnabled;
-                      print(result);
-                      final List<BluetoothInfo> listResult =
-                          await PrintBluetoothThermal.pairedBluetooths;
-                      await Future.forEach(listResult,
-                          (BluetoothInfo bluetooth) {
-                        String name = bluetooth.name;
-                        String mac = bluetooth.macAdress;
-                        print(name);
-                        print(mac);
-                      });
-                      String macAdress = "60:6E:41:62:D9:8C";
-                      await PrintBluetoothThermal.connect(macPrinterAddress: macAdress);
-                      String enter = '\n';
-                      await PrintBluetoothThermal.writeBytes(enter.codeUnits);
-                      //size of 1-5
-                      String text = "Hello $enter";
-                      await PrintBluetoothThermal.writeString(
-                          printText:
-                              PrintTextSize(size: 1, text: text + " size 1"));
-                      await PrintBluetoothThermal.writeString(
-                          printText:
-                              PrintTextSize(size: 2, text: text + " size 2"));
-                      await PrintBluetoothThermal.writeString(
-                          printText:
-                              PrintTextSize(size: 3, text: text + " size 3"));
-                      await PrintBluetoothThermal.writeString(
-                          printText:
-                              PrintTextSize(size: 2, text: text + " size 4"));
-                      await PrintBluetoothThermal.writeString(
-                          printText:
-                              PrintTextSize(size: 3, text: text + " size 5"));
+                      List<BluetoothInfo> devices = await ShowPairedDevicesService.showPairedDevices();
+                      for (BluetoothInfo device in devices) {
+                        print(device.name);
+                        print(device.macAdress);
+                      }
+                      await PrinterConnectionService.connect(devices[0].macAdress);
+                      List<int> bytes = [];
+                      final profile = await CapabilityProfile.load();
+                      final generator = Generator(PaperSize.mm58, profile);
+                      bytes += generator.text("Um item da comanda");
+                      await ReceiptPrintingService.printReceipt(bytes);
                     },
                   ),
                 ),
