@@ -1,18 +1,16 @@
-import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:panucci_ristorante/components/custom_buttons.dart';
 import 'package:panucci_ristorante/components/order_item.dart';
-import 'package:panucci_ristorante/services/printer_connection_service.dart';
-import 'package:panucci_ristorante/services/receipt_printing_service.dart';
-import 'package:panucci_ristorante/services/show_paired_devices_service.dart';
 import 'package:panucci_ristorante/store/carrinho_store.dart';
-import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
+import 'package:panucci_ristorante/viewmodels/checkout_viewmodel.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
 
 class Checkout extends StatelessWidget {
   Checkout({Key? key}) : super(key: key);
+
+  final CheckoutViewmodel checkoutViewmodel = CheckoutViewmodel();
 
   @override
   Widget build(BuildContext context) {
@@ -71,26 +69,7 @@ class Checkout extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                   child: CheckoutButton(
                     onTap: () async {
-                      List<BluetoothInfo> devices = await ShowPairedDevicesService.showPairedDevices();
-                      for (BluetoothInfo device in devices) {
-                        print(device.name);
-                        print(device.macAdress);
-                      }
-                      await PrinterConnectionService.connect(devices[0].macAdress);
-                      List<int> bytes = [];
-                      final profile = await CapabilityProfile.load();
-                      final generator = Generator(PaperSize.mm58, profile);
-                      bytes += generator.text("Um item da comanda",linesAfter: 2, styles: PosStyles(align: PosAlign.center, height: PosTextSize.size1));
-                      bytes += generator.reset();
-                      bytes += generator.text("Um item da comanda",linesAfter: 2, styles: PosStyles(height: PosTextSize.size2));
-                      bytes += generator.reset();
-                      bytes += generator.row([PosColumn(text: "Item 1", width: 6, styles: PosStyles(align: PosAlign.left)), PosColumn(text: "Item 2", width: 6, styles: PosStyles(align: PosAlign.right))]);
-                      bytes += generator.reset();
-                      bytes += generator.text("Um texto em negrito", styles: PosStyles(fontType: PosFontType.fontB));
-                      bytes += generator.reset();
-                      bytes += generator.qrcode("Um site qualquer.com", size: QRSize.size8);
-                      bytes += generator.reset();
-                      await ReceiptPrintingService.printReceipt(bytes);
+                      await checkoutViewmodel.printReceipt();
                     },
                   ),
                 ),
