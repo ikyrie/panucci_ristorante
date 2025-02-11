@@ -1,6 +1,7 @@
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:panucci_ristorante/models/item.dart';
 import 'package:panucci_ristorante/services/receipt_printing_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutViewmodel {
 
@@ -9,6 +10,11 @@ class CheckoutViewmodel {
   }
 
   Future<List<int>> _generateReceipt(List<Item> items, double total) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    print(preferences.getInt('paperSize'));
+    print('--------');
+    print(preferences.getInt('textSize'));
+
     List<int> bytes = [];
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm58, profile);
