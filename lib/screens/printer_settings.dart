@@ -1,6 +1,7 @@
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:panucci_ristorante/components/custom_buttons.dart';
+import 'package:panucci_ristorante/services/receipt_printing_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrinterSettings extends StatelessWidget {
@@ -100,7 +101,9 @@ class PrinterSettings extends StatelessWidget {
                     ),
                     SizedBox(height: 16,),
                     CustomSecondaryButton(
-                      onTap: () async {},
+                      onTap: () async {
+                        await ReceiptPrintingService.printingTest();
+                      },
                       text: "Imprimir teste",
                     ),
                   ],
